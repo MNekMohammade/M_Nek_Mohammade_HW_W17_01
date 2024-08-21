@@ -1,0 +1,51 @@
+﻿@model List<Staff>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Employee List</h2>
+        <form method="get" asp-action="List" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="storeId" class="sr-only">Store ID</label>
+                <input type="number" class="form-control" id="storeId" name="storeId" placeholder="Store ID">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="storeName" class="sr-only">Store Name</label>
+                <input type="text" class="form-control" id="storeName" name="storeName" placeholder="Store Name">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Filter</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Store Name</th>
+                    <th>Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var staff in Model)
+                {
+                    <tr>
+                        <td>@staff.FirstName</td>
+                        <td>@staff.LastName</td>
+                        <td>@staff.Email</td>
+                        <td>@staff.Phone</td>
+                        <td>@staff.Store.StoreName</td>
+                        <td>@(staff.Manager != null ? staff.Manager.FirstName + " " + staff.Manager.LastName : "N/A")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
