@@ -95,8 +95,8 @@ namespace M_Nek_Mohammade_HW_W17_01.DataAccess
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = @"
-                SELECT o.order_id, c.first_name, c.last_name, c.address, c.phone, 
-                o.order_date, o.requested_date, o.shipped_date, s.first_name AS staff_first_name, s.last_name AS staff_last_name
+                SELECT o.order_id, c.first_name, c.last_name,c.phone, 
+                o.order_date, o.required_date, o.shipped_date, s.first_name AS staff_first_name, s.last_name AS staff_last_name
                 FROM sales.orders o
                 INNER JOIN sales.customers c ON o.customer_id = c.customer_id
                 INNER JOIN sales.staffs s ON o.staff_id = s.staff_id
@@ -106,7 +106,7 @@ namespace M_Nek_Mohammade_HW_W17_01.DataAccess
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@OrderId", orderId);
-
+                    //Invalid column name 'requested_date' ***خطا زدن سرچ***
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -116,10 +116,10 @@ namespace M_Nek_Mohammade_HW_W17_01.DataAccess
                             OrderId = Convert.ToInt32(reader["order_id"]),
                             FirstName = reader["first_name"].ToString(),
                             LastName = reader["last_name"].ToString(),
-                            Address = reader["address"].ToString(),
                             Phone = reader["phone"].ToString(),
                             OrderDate = Convert.ToDateTime(reader["order_date"]),
-                            RequesteDate = reader["requested_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["requested_date"]),
+                            //اینجا
+                            RequesteDate = reader["required_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["required_date"]),
                             ShippedDate = reader["shipped_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["shipped_date"]),
                             Staff = new Staff
                             {
