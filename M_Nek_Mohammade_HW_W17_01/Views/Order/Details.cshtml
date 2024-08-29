@@ -24,14 +24,16 @@
             <tbody>
                 @foreach (var item in Model)
                 {
+                    //*ToString
                     <tr>
                         <td>@item.ProductId</td>
                         <td>@item.ProductName</td>
                         <td>@item.Quantity</td>
                         <td>@item.ListPrice.ToString("C")</td>
                         <td>@item.Discount.ToString("C")</td>
-                        <td>@((item.ListPrice - item.Discount) * item.Quantity).ToString("C")</td>
+                        <td>@((item.ListPrice - item.Discount) * item.Quantity)</td>
                     </tr>
+                    
                 }
             </tbody>
         </table>
